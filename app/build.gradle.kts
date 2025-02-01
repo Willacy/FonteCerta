@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "br.edu.ifba.fontecerta"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.edu.ifba.fontecerta"
@@ -32,6 +32,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
