@@ -1,6 +1,8 @@
 package br.edu.ifba.fontecerta
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifba.fontecerta.databinding.ActivityMainBinding
 
@@ -10,5 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        enableEdgeToEdge()
+        binding.btnSobre.setOnClickListener {
+            val i = Intent(this, TelaSobre::class.java)
+            startActivity(i)
+        }
     }
 }
