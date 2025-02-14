@@ -17,5 +17,12 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this, TelaSobre::class.java)
             startActivity(i)
         }
+        binding.btnCalcularPotencia.setOnClickListener {
+            val i = Intent(this, TelaCalculadora::class.java)
+            startActivity(i)
+        }
+//        binding.btnSistema.setOnClickListener {
+//            val i = Intent(this, TelaSistema::class.java)
+//        }
     }
 }
