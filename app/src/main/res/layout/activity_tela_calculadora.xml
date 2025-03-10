@@ -190,7 +190,8 @@
                         android:layout_weight="1"
                         android:background="#000"
                         android:fontFamily="@font/contax"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:spinnerMode="dropdown" />
 
                     <Spinner
                         android:id="@+id/spinnerRAMQuantidade"
@@ -203,10 +204,11 @@
                         android:gravity="center" />
                 </LinearLayout>
 
-                <!-- HD SSD -->
+                <!-- HD -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="#7C191919"
                     android:orientation="horizontal"
                     android:padding="10dp">
@@ -217,7 +219,7 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
                         android:fontFamily="@font/contax"
-                        android:text="HD"
+                        android:text="HDD"
                         android:textColor="#FFF"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -233,6 +235,26 @@
                         android:fontFamily="@font/contax"
                         android:gravity="center" />
 
+                    <Spinner
+                        android:id="@+id/spinnerQuantHD"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="#000"
+                        android:fontFamily="@font/contax"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- SSD -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#7C191919"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -246,7 +268,18 @@
 
                     <Spinner
                         android:id="@+id/spinnerSSD"
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:background="#000"
+                        android:fontFamily="@font/contax"
+                        android:gravity="center" />
+
+                    <Spinner
+                        android:id="@+id/spinnerQuantSSD"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
@@ -254,6 +287,7 @@
                         android:fontFamily="@font/contax"
                         android:gravity="center" />
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/btnCalcular"
                     android:layout_width="match_parent"
