@@ -120,12 +120,12 @@ class TelaCalculadora : AppCompatActivity() {
                 val msg = "Coloque a quantidade de cada peça!"
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             }else{
-                binding.txtResultado.text = "${fonteIdeal + (fonteIdeal * 0.15) + 100}w"
+                binding.txtResultado.text = "${fonteIdeal + (fonteIdeal * 0.20)}w"
                 //binding.txtResultado.text = "Entrou"
 
             }
         }else{
-            binding.txtResultado.text = "${fonteIdeal}w"
+            binding.txtResultado.text = "${fonteIdeal + (fonteIdeal * 0.20)}w"
             //binding.txtResultado.text = "Fora"
         }
     }
