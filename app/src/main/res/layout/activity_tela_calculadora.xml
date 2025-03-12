@@ -354,7 +354,11 @@
                     android:textAlignment="center"
                     android:textColor="#191919"
                     android:textSize="80sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:autoLink="web"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:hint="0.0w"/>
 
             </LinearLayout>
         </LinearLayout>

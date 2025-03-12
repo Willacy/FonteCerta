@@ -1,6 +1,10 @@
 package br.edu.ifba.fontecerta
 
+//noinspection SuspiciousImport
 import android.R
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -13,7 +17,7 @@ class TelaCalculadora : AppCompatActivity() {
 
     // Variáveis
     private lateinit var binding: ActivityTelaCalculadoraBinding
-    private lateinit var DAOPecas: DAOPecas
+    private lateinit var pecasDAO: DAOPecas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +26,7 @@ class TelaCalculadora : AppCompatActivity() {
         setContentView(binding.root)
 
         // Inicializar o banco de dados e o DAO
-        DAOPecas = DAOPecas(this)
+        pecasDAO = DAOPecas(this)
 
         // Lista de opções para so Spinners de quantidades
         val lista = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
@@ -35,7 +39,8 @@ class TelaCalculadora : AppCompatActivity() {
         preencherSpinner("RAM", binding.spinnerRAM)
         preencherSpinner("SSD", binding.spinnerSSD)
         preencherSpinner("HD", binding.spinnerHD)
-        binding.spinnerRAMQuantidade.adapter = ArrayAdapter(this, R.layout.simple_spinner_item, lista)
+        binding.spinnerRAMQuantidade.adapter =
+            ArrayAdapter(this, R.layout.simple_spinner_item, lista)
         binding.spinnerQuantHD.adapter = ArrayAdapter(this, R.layout.simple_spinner_item, lista)
         binding.spinnerQuantSSD.adapter = ArrayAdapter(this, R.layout.simple_spinner_item, lista)
 
@@ -46,10 +51,9 @@ class TelaCalculadora : AppCompatActivity() {
         binding.btnLimpar.setOnClickListener {
             limpar()
         }
-
     }
 
-    private fun limpar(){
+    private fun limpar() {
         binding.spinnerCpu.setSelection(0)
         binding.spinnerGpu.setSelection(0)
         binding.spinnerPlacaMae.setSelection(0)
@@ -60,13 +64,14 @@ class TelaCalculadora : AppCompatActivity() {
         binding.spinnerQuantHD.setSelection(0)
         binding.spinnerQuantSSD.setSelection(0)
         binding.txtResultado.text = ""
+        binding.txtResultado.setOnClickListener(null)
 
     }
 
     // Função para preencher os Spinners com as peças
     private fun preencherSpinner(categoria: String, spinner: Spinner) {
         // Obter as peças da categoria especificada
-        val pecas = DAOPecas.listarPecasPorCategoria(categoria)
+        val pecas = pecasDAO.listarPecasPorCategoria(categoria)
         // Extrair os nomes e os consumos das peças
         val nomesPecas = pecas.map { it.first }
         // Extrair os consumos das peças
@@ -74,7 +79,7 @@ class TelaCalculadora : AppCompatActivity() {
 
         // Configurar o adaptador para o Spinner
         val adapter = ArrayAdapter(this, R.layout.simple_spinner_item, nomesPecas)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
         // Associar os consumos às peças no Spinner
@@ -82,6 +87,7 @@ class TelaCalculadora : AppCompatActivity() {
     }
 
     // Função para calcular a fonte ideal
+    @SuppressLint("SetTextI18n")
     private fun calcularFonteIdeal() {
         // Obter a posição selecionada em cada Spinner
         val posicaoCpu = binding.spinnerCpu.selectedItemPosition
@@ -91,42 +97,106 @@ class TelaCalculadora : AppCompatActivity() {
         val posicaoSsd = binding.spinnerSSD.selectedItemPosition
         val posicaoHd = binding.spinnerHD.selectedItemPosition
 
-        // Obter os consumos das peças
-        val consumosCpu = binding.spinnerCpu.tag as List<Int>
-        val consumosGpu = binding.spinnerGpu.tag as List<Int>
-        val consumosPlacaMae = binding.spinnerPlacaMae.tag as List<Int>
-        val consumosRam = binding.spinnerRAM.tag as List<Int>
-        val consumosSsd = binding.spinnerSSD.tag as List<Int>
-        val consumosHd = binding.spinnerHD.tag as List<Int>
+        if (!(posicaoCpu == 0 && posicaoGpu == 0 && posicaoPlacaMae == 0 && posicaoRam == 0 && posicaoSsd == 0 && posicaoHd == 0)) {
 
-        // obter o consumo de cada peça selecionada
-        val cpu = consumosCpu[posicaoCpu]
-        val gpu = consumosGpu[posicaoGpu]
-        val placaMae = consumosPlacaMae[posicaoPlacaMae]
-        val ram = consumosRam[posicaoRam]
-        val ssd = consumosSsd[posicaoSsd]
-        val hd = consumosHd[posicaoHd]
+            // Obter os consumos das peças
+            val consumosCpu = binding.spinnerCpu.tag as List<Int>
+            val consumosGpu = binding.spinnerGpu.tag as List<Int>
+            val consumosPlacaMae = binding.spinnerPlacaMae.tag as List<Int>
+            val consumosRam = binding.spinnerRAM.tag as List<Int>
+            val consumosSsd = binding.spinnerSSD.tag as List<Int>
+            val consumosHd = binding.spinnerHD.tag as List<Int>
 
-        // Obter a quantidade de cada peça selecionada
-        val quantRam = binding.spinnerRAMQuantidade.selectedItem.toString().toInt()
-        val quantSsd = binding.spinnerQuantSSD.selectedItem.toString().toInt()
-        val quantHd = binding.spinnerQuantHD.selectedItem.toString().toInt()
+            // obter o consumo de cada peça selecionada
+            val cpu = consumosCpu[posicaoCpu]
+            val gpu = consumosGpu[posicaoGpu]
+            val placaMae = consumosPlacaMae[posicaoPlacaMae]
+            val ram = consumosRam[posicaoRam]
+            val ssd = consumosSsd[posicaoSsd]
+            val hd = consumosHd[posicaoHd]
 
-        // Calcular a fonte ideal se todos os campos forem preenchidos
-        val fonteIdeal = (cpu + gpu + placaMae + (ram * quantRam) + (ssd * quantSsd) + (hd * quantHd))
+            // Obter a quantidade de cada peça selecionada
+            val quantRam = binding.spinnerRAMQuantidade.selectedItem.toString().toInt()
+            val quantSsd = binding.spinnerQuantSSD.selectedItem.toString().toInt()
+            val quantHd = binding.spinnerQuantHD.selectedItem.toString().toInt()
 
-        if(posicaoCpu != 0 && posicaoGpu != 0 && posicaoPlacaMae != 0 && posicaoRam != 0 && posicaoSsd != 0 && posicaoHd != 0){
-            if(quantRam == 0 || quantSsd == 0 || quantHd == 0){
-                val msg = "Coloque a quantidade de cada peça!"
+            // Calcular a fonte ideal se todos os campos forem preenchidos
+            val soma =
+                (cpu + gpu + placaMae + (ram * quantRam) + (ssd * quantSsd) + (hd * quantHd))
+            val fonteIdeal = soma + (soma * 0.20)
+
+
+
+            if (posicaoRam != 0 && quantRam == 0) {
+                val msg = "Coloque a quantidade de Memoria!"
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-            }else{
-                binding.txtResultado.text = "${fonteIdeal + (fonteIdeal * 0.20)}w"
-                //binding.txtResultado.text = "Entrou"
+            } else if (posicaoSsd != 0 && quantSsd == 0) {
+                val msg = "Coloque a quantidade de SSD!"
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            } else if (posicaoHd != 0 && quantHd == 0) {
+                val msg = "Coloque a quantidade de HD!"
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            } else {
+                binding.txtResultado.setOnClickListener(null)
+                binding.txtResultado.text = "${fonteIdeal}w"
 
+                // criando o link para a pesquisa da fonte ideal
+                if (fonteIdeal.toInt() < 200) {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-200W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                } else if (fonteIdeal.toInt() < 300) {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-300W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                } else if (fonteIdeal.toInt() < 400) {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-400W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                } else if (fonteIdeal.toInt() < 500) {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-500W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                } else if (fonteIdeal.toInt() < 600) {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-600W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                } else if (fonteIdeal.toInt() < 800) {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-800W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                } else {
+                    val url =
+                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-${fonteIdeal.toInt()}W"
+                    binding.txtResultado.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+
+                }
             }
         }else{
-            binding.txtResultado.text = "${fonteIdeal + (fonteIdeal * 0.20)}w"
-            //binding.txtResultado.text = "Fora"
+            val msg = "Escolha ao menos um componente!"
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            limpar()
         }
     }
 }
