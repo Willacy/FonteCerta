@@ -140,63 +140,36 @@ class TelaCalculadora : AppCompatActivity() {
                 binding.txtResultado.setOnClickListener(null)
                 binding.txtResultado.text = "${fonteIdeal}w"
 
-                // criando o link para a pesquisa da fonte ideal
+                // Passando valores para a pesquisa web
                 if (fonteIdeal.toInt() < 200) {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-200W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
+                    pesquiseWeb(200)
                 } else if (fonteIdeal.toInt() < 300) {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-300W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
+                    pesquiseWeb(300)
                 } else if (fonteIdeal.toInt() < 400) {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-400W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
+                    pesquiseWeb(400)
                 } else if (fonteIdeal.toInt() < 500) {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-500W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
+                    pesquiseWeb(500)
                 } else if (fonteIdeal.toInt() < 600) {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-600W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
+                    pesquiseWeb(600)
                 } else if (fonteIdeal.toInt() < 800) {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-800W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
+                    pesquiseWeb(800)
                 } else {
-                    val url =
-                        "https://www.kabum.com.br/busca/fonte-de-alimentacao-${fonteIdeal.toInt()}W"
-                    binding.txtResultado.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                    }
-
+                    pesquiseWeb(fonteIdeal.toInt())
                 }
             }
-        }else{
+        } else {
             val msg = "Escolha ao menos um componente!"
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             limpar()
+        }
+    }
+    // Pesquisando no site
+    fun pesquiseWeb(valor: Int) {
+        val url =
+            "https://www.kabum.com.br/busca/fonte-de-alimentacao-${valor}W"
+        binding.txtResultado.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
         }
     }
 }
