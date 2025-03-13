@@ -21,8 +21,9 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this, TelaCalculadora::class.java)
             startActivity(i)
         }
-//        binding.btnSistema.setOnClickListener {
-//            val i = Intent(this, TelaSistema::class.java)
-//        }
+        binding.btnSistema.setOnClickListener {
+            val i = Intent(this, TelaSistema::class.java)
+            startActivity(i)
+        }
     }
 }

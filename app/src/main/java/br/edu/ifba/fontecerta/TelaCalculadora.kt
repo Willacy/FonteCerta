@@ -51,6 +51,10 @@ class TelaCalculadora : AppCompatActivity() {
         binding.btnLimpar.setOnClickListener {
             limpar()
         }
+
+        binding.btnVoltar.setOnClickListener {
+            finish()
+        }
     }
 
     private fun limpar() {

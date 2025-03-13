@@ -42,25 +42,7 @@
             android:background="#5c191919"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="1dp"
-                android:fontFamily="@font/contax"
-                android:minWidth="300dp"
-                android:shadowColor="#fff"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="15"
-                android:text="CALCULADORA"
-                android:textAlignment="center"
-                android:textColor="#191919"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,6 +50,26 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="vertical"
                 android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/contax"
+                    android:minWidth="300dp"
+                    android:shadowColor="#fff"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="15"
+                    android:text="CALCULADORA"
+                    android:textAlignment="center"
+                    android:textColor="#191919"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
                 <!-- CPU -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -340,13 +342,12 @@
                     android:id="@+id/txtResultado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="1dp"
-                    android:fontFamily="@font/contax"
-                    android:minWidth="600dp"
+                    android:fontFamily="@font/contax" android:minWidth="600dp"
                     android:shadowColor="#fff"
                     android:shadowDx="0"
                     android:shadowDy="0"
@@ -359,6 +360,17 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="0.0w"/>
+
+                <Button
+                    android:id="@+id/btnVoltar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#5C191919"
+                    android:fontFamily="@font/contax"
+                    android:text="VOLTAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>
