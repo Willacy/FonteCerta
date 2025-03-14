@@ -14,6 +14,8 @@ class TelaSistema : AppCompatActivity() {
         binding = ActivityTelaSistemaBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
+
+        // Botão Voltar
         binding.btnVoltar.setOnClickListener {
             finish()
         }
