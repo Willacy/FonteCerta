@@ -63,7 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtTemperatura"
+                android:id="@+id/txtNomeDispositivo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -77,7 +77,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtFps"
+                android:id="@+id/txtMemoriaRAM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/contax"
+                android:minWidth="300dp"
+                android:textColor="#191919"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtArmazenamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/contax"
+                android:minWidth="300dp"
+                android:textColor="#191919"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtTemperatura"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
