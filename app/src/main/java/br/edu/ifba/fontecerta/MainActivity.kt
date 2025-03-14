@@ -25,5 +25,8 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this, TelaSistema::class.java)
             startActivity(i)
         }
+        binding.btnSair.setOnClickListener {
+            finish()
+        }
     }
 }
